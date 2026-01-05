@@ -23,6 +23,8 @@
       --inset: inset 0 1px 0 rgba(255,255,255,.08);
       --logoBg: rgba(0,0,0,.28);
       --modalBg: rgba(0,0,0,.72);
+      --toastBg: rgba(0,0,0,.55);
+      --toastText: rgba(243,246,251,.92);
     }
 
     html[data-theme="light"]{
@@ -40,13 +42,11 @@
       --inset: inset 0 1px 0 rgba(255,255,255,.55);
       --logoBg: rgba(255,255,255,.55);
       --modalBg: rgba(9,12,18,.45);
+      --toastBg: rgba(255,255,255,.72);
+      --toastText: rgba(13,17,23,.88);
     }
 
-    :root{
-      --radius:24px;
-      --ease:cubic-bezier(.2,.85,.2,1);
-    }
-
+    :root{ --radius:24px; --ease:cubic-bezier(.2,.85,.2,1); }
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
 
@@ -58,7 +58,6 @@
       align-items:center;
       justify-content:center;
       padding:26px 16px;
-
       background:
         radial-gradient(950px 520px at 18% 10%, rgba(215,221,227,.16), transparent 62%),
         radial-gradient(820px 560px at 85% 20%, rgba(162,168,174,.12), transparent 58%),
@@ -116,7 +115,6 @@
       margin-bottom:12px;
     }
 
-    .brand{ min-width:0; }
     .brand h1{
       margin:0;
       font-size:22px;
@@ -155,11 +153,7 @@
       white-space:nowrap;
     }
     html[data-theme="light"] .chip{ background: rgba(255,255,255,.55); }
-    .chip:hover{
-      transform: translateY(-1px);
-      border-color: rgba(215,221,227,.34);
-      background: rgba(255,255,255,.10);
-    }
+    .chip:hover{ transform: translateY(-1px); border-color: rgba(215,221,227,.34); background: rgba(255,255,255,.10); }
     html[data-theme="light"] .chip:hover{ background: rgba(255,255,255,.70); }
 
     .dot{
@@ -185,7 +179,6 @@
         0 18px 55px rgba(12,16,24,.14),
         inset 0 0 22px rgba(255,255,255,.30);
     }
-
     .biglogo img{ width:100%; height:auto; display:block; object-fit:cover; }
 
     .content{ padding:18px 22px 14px; }
@@ -204,7 +197,7 @@
       text-decoration:none;
       cursor:pointer;
       box-shadow: var(--inset), var(--btnShadow);
-      transition: transform .18s var(--ease), border-color .18s var(--ease), background .18s var(--ease);
+      transition: transform .18s var(--ease), border-color .18s var(--ease);
       will-change: transform;
     }
     html[data-theme="light"] .btn{
@@ -258,39 +251,37 @@
       border-color: rgba(15,17,21,.08);
     }
 
-    .micro-actions{
-      display:flex;
-      gap:10px;
-      margin-top:10px;
-      flex-wrap:wrap;
+    .hintbox-wrap{ padding:0 22px 18px; }
+    .hintbox{
+      border-radius: 18px;
+      border:1px solid var(--line2);
+      background: rgba(255,255,255,.045);
+      padding:12px 14px;
+      color:var(--muted2);
+      font-size:11.5px;
+      line-height:1.35;
+    }
+    html[data-theme="light"] .hintbox{
+      background: rgba(255,255,255,.58);
+      border-color: rgba(15,17,21,.08);
     }
 
-    .mini{
-      display:inline-flex;
+    footer{
+      padding:14px 22px;
+      border-top:1px solid var(--line2);
+      display:flex;
       align-items:center;
-      gap:10px;
-      padding:9px 12px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.06);
+      justify-content:space-between;
+      gap:12px;
       color:var(--muted);
-      text-decoration:none;
-      transition: transform .18s var(--ease), border-color .18s var(--ease), background .18s var(--ease);
-      cursor:pointer;
-      user-select:none;
       font-size:12px;
     }
-    html[data-theme="light"] .mini{ background: rgba(255,255,255,.62); }
-    .mini:hover{
-      transform: translateY(-1px);
-      border-color: rgba(215,221,227,.34);
-      background: rgba(255,255,255,.10);
-    }
-    html[data-theme="light"] .mini:hover{ background: rgba(255,255,255,.78); }
+
+    .hidden{ display:none; }
 
     /* ===== Gallery ===== */
     .sectionTitle{
-      margin:18px 0 10px;
+      margin:2px 0 12px;
       font-size:12px;
       letter-spacing:.22em;
       text-transform:uppercase;
@@ -313,7 +304,6 @@
       box-shadow: var(--inset), 0 10px 26px rgba(0,0,0,.22);
       aspect-ratio: 1 / 1;
     }
-
     html[data-theme="light"] .gItem{
       background: rgba(255,255,255,.62);
       box-shadow: var(--inset), 0 12px 24px rgba(12,16,24,.10);
@@ -327,7 +317,6 @@
       transform: scale(1.02);
       transition: transform .22s var(--ease);
     }
-
     .gItem:hover img{ transform: scale(1.06); }
 
     .gOverlay{
@@ -347,13 +336,12 @@
       color: rgba(255,255,255,.9);
       letter-spacing:.02em;
     }
-    html[data-theme="light"] .gHint{ color: rgba(255,255,255,.94); }
 
     @media (max-width:480px){
       .gallery{ grid-template-columns: repeat(2, 1fr); }
     }
 
-    /* ===== Modal (lightbox) ===== */
+    /* ===== Modal ===== */
     .modal{
       position:fixed;
       inset:0;
@@ -409,37 +397,30 @@
       background: rgba(0,0,0,.18);
     }
 
-    .hintbox-wrap{ padding:0 22px 18px; }
-    .hintbox{
-      border-radius: 18px;
-      border:1px solid var(--line2);
-      background: rgba(255,255,255,.045);
-      padding:12px 14px;
-      color:var(--muted2);
-      font-size:11.5px;
-      line-height:1.35;
-    }
-    html[data-theme="light"] .hintbox{
-      background: rgba(255,255,255,.58);
-      border-color: rgba(15,17,21,.08);
-    }
-
-    footer{
-      padding:14px 22px;
-      border-top:1px solid var(--line2);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      color:var(--muted);
+    /* Toast */
+    #toast{
+      position:fixed;
+      left:50%;
+      bottom:22px;
+      transform:translateX(-50%);
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: var(--toastBg);
+      color: var(--toastText);
       font-size:12px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      z-index:99999;
+      opacity:0;
+      transition: opacity .2s ease;
+      pointer-events:none;
     }
-
-    .hidden{ display:none; }
 
     @media (prefers-reduced-motion: reduce){
-      .btn,.mini,.chip,.gItem img,.gOverlay{ transition:none; }
-      .btn:hover,.mini:hover,.chip:hover{ transform:none; }
+      .btn,.chip,.gItem img,.gOverlay,#toast{ transition:none; }
+      .btn:hover,.chip:hover{ transform:none; }
       .gItem:hover img{ transform:none; }
     }
   </style>
@@ -447,7 +428,7 @@
 
 <body>
   <main class="wrap">
-    <section class="card" aria-label="Irek Halk Social Links">
+    <section class="card">
 
       <header>
         <div class="topRow">
@@ -458,7 +439,7 @@
 
           <div class="chips">
             <div class="chip" onclick="showLang()" title="Sprache ändern">
-              <span class="dot" aria-hidden="true"></span>
+              <span class="dot"></span>
               <span id="langLabel">Deutsch</span>
             </div>
             <div class="chip" onclick="setTheme('light')" title="Hell">☀️</div>
@@ -466,44 +447,42 @@
           </div>
         </div>
 
-        <div class="biglogo" aria-label="Logo">
-          <img src="logo.png" alt="Irek Halk Logo"
-               onerror="this.style.display='none'; this.parentElement.style.padding='18px'; this.parentElement.textContent='logo.png not found';" />
+        <div class="biglogo">
+          <img src="logo.png" alt="Irek Halk Logo" />
         </div>
       </header>
 
       <!-- LANGUAGE SELECT -->
-      <div class="content" id="lang-select">
+      <div class="content hidden" id="lang-select">
         <div class="stack">
           <div class="btn" onclick="setLang('de')">
             <div class="left">
-              <div class="pill" aria-hidden="true">🇩🇪</div>
+              <div class="pill">🇩🇪</div>
               <div class="label"><strong>Deutsch</strong><span>Sprache auswählen</span></div>
             </div>
-            <div class="arrow" aria-hidden="true">→</div>
+            <div class="arrow">→</div>
           </div>
 
           <div class="btn" onclick="setLang('pl')">
             <div class="left">
-              <div class="pill" aria-hidden="true">🇵🇱</div>
+              <div class="pill">🇵🇱</div>
               <div class="label"><strong>Polski</strong><span>Wybierz język</span></div>
             </div>
-            <div class="arrow" aria-hidden="true">→</div>
+            <div class="arrow">→</div>
           </div>
 
           <div class="btn" onclick="setLang('en')">
             <div class="left">
-              <div class="pill" aria-hidden="true">🇬🇧</div>
+              <div class="pill">🇬🇧</div>
               <div class="label"><strong>English</strong><span>Select language</span></div>
             </div>
-            <div class="arrow" aria-hidden="true">→</div>
+            <div class="arrow">→</div>
           </div>
         </div>
       </div>
 
-      <!-- LINKS + GALLERY -->
-      <div class="content hidden" id="links">
-
+      <!-- LINKS VIEW -->
+      <div class="content" id="linksView">
         <div class="stack">
           <a class="btn" href="https://www.instagram.com/ixdesign.studio/" onclick="openSafe(event, this.href)">
             <div class="left">
@@ -519,7 +498,7 @@
                 <span id="txt-ig">Portfolio & Updates</span>
               </div>
             </div>
-            <div class="arrow" aria-hidden="true">→</div>
+            <div class="arrow">→</div>
           </a>
 
           <a class="btn" href="https://www.tiktok.com/@ixdesignhh" onclick="openSafe(event, this.href)">
@@ -534,7 +513,7 @@
                 <span id="txt-tt">Werkstatt & Behind the Scenes</span>
               </div>
             </div>
-            <div class="arrow" aria-hidden="true">→</div>
+            <div class="arrow">→</div>
           </a>
 
           <a class="btn" href="https://www.youtube.com/@patrykvega-g7d" onclick="openSafe(event, this.href)">
@@ -550,28 +529,40 @@
                 <span id="txt-yt">Videos & Projekte</span>
               </div>
             </div>
-            <div class="arrow" aria-hidden="true">→</div>
+            <div class="arrow">→</div>
+          </a>
+
+          <!-- Gallery button -->
+          <a class="btn" href="#" onclick="openGallery(event)">
+            <div class="left">
+              <div class="pill" aria-hidden="true">🖼️</div>
+              <div class="label">
+                <strong id="galleryBtnTitle">Galerie</strong>
+                <span id="galleryBtnSub">Fotos & Projekte</span>
+              </div>
+            </div>
+            <div class="arrow">→</div>
           </a>
         </div>
+      </div>
 
-        <div class="micro-actions">
-          <a class="mini" href="#" onclick="copyLink(event, 'https://www.instagram.com/ixdesign.studio/')">
-            <span class="dot" aria-hidden="true"></span>
-            <span id="copyIg">Instagram-Link kopieren</span>
-          </a>
-          <a class="mini" href="#" onclick="copyLink(event, window.location.href)">
-            <span class="dot" aria-hidden="true"></span>
-            <span id="copyPage">Seitenlink kopieren</span>
-          </a>
-          <a class="mini" href="#" onclick="clearLanguage(event)">
-            <span class="dot" aria-hidden="true"></span>
-            <span id="clearLang">Sprache zurücksetzen</span>
+      <!-- GALLERY VIEW -->
+      <div class="content hidden" id="galleryView">
+        <div class="stack">
+          <a class="btn" href="#" onclick="closeGallery(event)">
+            <div class="left">
+              <div class="pill" aria-hidden="true">←</div>
+              <div class="label">
+                <strong id="backTitle">Zurück</strong>
+                <span id="backSub">Links anzeigen</span>
+              </div>
+            </div>
+            <div class="arrow" aria-hidden="true">✓</div>
           </a>
         </div>
 
         <div class="sectionTitle" id="galleryTitle">Galerie</div>
         <div class="gallery" id="gallery"></div>
-
       </div>
 
       <div class="hintbox-wrap">
@@ -583,10 +574,7 @@
 
       <footer>
         <span>© <span id="year"></span> Irek Halk</span>
-        <a class="mini" href="#" onclick="resetLang(event)">
-          <span class="dot" aria-hidden="true"></span>
-          <span id="changeLang">Sprache ändern</span>
-        </a>
+        <span id="footerHint">Luxury</span>
       </footer>
 
     </section>
@@ -603,12 +591,14 @@
     </div>
   </div>
 
+  <div id="toast"></div>
+
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
     // ====== GALLERY CONFIG ======
     // Wrzucasz pliki do folderu: /gallery/
-    // i tu wpisujesz nazwy (możesz dodać więcej):
+    // Nazwy plików muszą się zgadzać!
     const GALLERY_FILES = [
       "gallery/01.jpg",
       "gallery/02.jpg",
@@ -621,18 +611,19 @@
     function buildGallery(){
       const wrap = document.getElementById("gallery");
       wrap.innerHTML = "";
+
+      let visibleCount = 0;
+
       GALLERY_FILES.forEach((src, idx) => {
         const item = document.createElement("div");
         item.className = "gItem";
-        item.setAttribute("role", "button");
-        item.setAttribute("aria-label", "Open image " + (idx+1));
         item.onclick = () => openModal(src);
 
         const img = document.createElement("img");
         img.src = src;
         img.alt = "Gallery image " + (idx+1);
 
-        // jeśli plik nie istnieje, ukryj kafelek
+        img.onload = () => { visibleCount++; };
         img.onerror = () => { item.style.display = "none"; };
 
         const ov = document.createElement("div");
@@ -647,6 +638,34 @@
         item.appendChild(hint);
         wrap.appendChild(item);
       });
+
+      // jeśli NIC się nie załadowało, pokaż komunikat
+      setTimeout(() => {
+        const hasAny = [...wrap.children].some(ch => ch.style.display !== "none");
+        if(!hasAny){
+          wrap.innerHTML = "";
+          const msg = document.createElement("div");
+          msg.className = "hintbox";
+          msg.textContent = "Galerie: Keine Bilder gefunden. Prüfe bitte den Ordner /gallery/ und die Dateinamen (z.B. 01.jpg, 02.jpg...).";
+          wrap.appendChild(msg);
+        }
+      }, 600);
+    }
+
+    // ====== Views ======
+    function openGallery(e){
+      e.preventDefault();
+      document.getElementById("linksView").classList.add("hidden");
+      document.getElementById("galleryView").classList.remove("hidden");
+      buildGallery();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function closeGallery(e){
+      e.preventDefault();
+      document.getElementById("galleryView").classList.add("hidden");
+      document.getElementById("linksView").classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     // ====== i18n ======
@@ -654,44 +673,44 @@
       de: {
         langLabel: "Deutsch",
         subtitle: "Wähle eine Plattform und sieh dir meine Projekte an",
-        change: "Sprache ändern",
         ig: "Portfolio & Updates",
         tt: "Werkstatt & Behind the Scenes",
         yt: "Videos & Projekte",
-        copyIg: "Instagram-Link kopieren",
-        copyPage: "Seitenlink kopieren",
-        clearLang: "Sprache zurücksetzen",
-        gallery: "Galerie",
+        galleryBtnTitle: "Galerie",
+        galleryBtnSub: "Fotos & Projekte",
+        backTitle: "Zurück",
+        backSub: "Links anzeigen",
+        galleryTitle: "Galerie",
         modal: "Vorschau",
-        hint: "Tipp: Wenn du die Seite innerhalb von Instagram/TikTok/YouTube öffnest und ein Link nicht geht, nutze das Menü (⋮) → „Im Browser öffnen“ oder kopiere den Link und öffne ihn in Chrome."
+        hint: "Tipp: Wenn du die Seite innerhalb von Instagram/TikTok/YouTube öffnest und ein Link nicht geht, nutze das Menü (⋮) → „Im Browser öffnen“."
       },
       pl: {
         langLabel: "Polski",
         subtitle: "Wybierz platformę i zobacz moje projekty",
-        change: "Zmień język",
         ig: "Portfolio i nowości",
         tt: "Kulisy pracy w warsztacie",
         yt: "Wideo i projekty",
-        copyIg: "Kopiuj link do Instagrama",
-        copyPage: "Kopiuj link do strony",
-        clearLang: "Reset języka",
-        gallery: "Galeria",
+        galleryBtnTitle: "Galeria",
+        galleryBtnSub: "Zdjęcia i projekty",
+        backTitle: "Wróć",
+        backSub: "Pokaż linki",
+        galleryTitle: "Galeria",
         modal: "Podgląd",
-        hint: "Wskazówka: jeśli otwierasz stronę w Instagramie/TikToku/YouTube i link nie działa, użyj menu (⋮) → „Otwórz w przeglądarce” albo skopiuj link i otwórz w Chrome."
+        hint: "Wskazówka: jeśli otwierasz stronę w Instagramie/TikToku/YouTube i link nie działa, użyj menu (⋮) → „Otwórz w przeglądarce”."
       },
       en: {
         langLabel: "English",
         subtitle: "Choose a platform and explore my projects",
-        change: "Change language",
         ig: "Portfolio & updates",
         tt: "Workshop & behind the scenes",
         yt: "Videos & projects",
-        copyIg: "Copy Instagram link",
-        copyPage: "Copy page link",
-        clearLang: "Reset language",
-        gallery: "Gallery",
+        galleryBtnTitle: "Gallery",
+        galleryBtnSub: "Photos & projects",
+        backTitle: "Back",
+        backSub: "Show links",
+        galleryTitle: "Gallery",
         modal: "Preview",
-        hint: "Tip: if you open this page inside Instagram/TikTok/YouTube and a link fails, use the menu (⋮) → “Open in browser”, or copy the link and open it in Chrome."
+        hint: "Tip: if you open this page inside Instagram/TikTok/YouTube and a link fails, use the menu (⋮) → “Open in browser”."
       }
     };
 
@@ -701,17 +720,18 @@
 
       document.getElementById("langLabel").textContent = t.langLabel;
       document.getElementById("subtitle").textContent = t.subtitle;
-      document.getElementById("changeLang").textContent = t.change;
 
       document.getElementById("txt-ig").textContent = t.ig;
       document.getElementById("txt-tt").textContent = t.tt;
       document.getElementById("txt-yt").textContent = t.yt;
 
-      document.getElementById("copyIg").textContent = t.copyIg;
-      document.getElementById("copyPage").textContent = t.copyPage;
-      document.getElementById("clearLang").textContent = t.clearLang;
+      document.getElementById("galleryBtnTitle").textContent = t.galleryBtnTitle;
+      document.getElementById("galleryBtnSub").textContent = t.galleryBtnSub;
 
-      document.getElementById("galleryTitle").textContent = t.gallery;
+      document.getElementById("backTitle").textContent = t.backTitle;
+      document.getElementById("backSub").textContent = t.backSub;
+
+      document.getElementById("galleryTitle").textContent = t.galleryTitle;
       document.getElementById("modalLabel").textContent = t.modal;
 
       document.getElementById("hintBox").textContent = t.hint;
@@ -720,27 +740,20 @@
     function setLang(lang){
       localStorage.setItem("lang", lang);
       applyLang(lang);
-      document.getElementById("lang-select").classList.add("hidden");
-      document.getElementById("links").classList.remove("hidden");
-    }
-
-    function resetLang(e){
-      e.preventDefault();
-      showLang();
+      hideLang();
+      toast(lang === "de" ? "Deutsch" : lang === "pl" ? "Polski" : "English");
     }
 
     function showLang(){
-      document.getElementById("links").classList.add("hidden");
       document.getElementById("lang-select").classList.remove("hidden");
+      document.getElementById("linksView").classList.add("hidden");
+      document.getElementById("galleryView").classList.add("hidden");
     }
 
-    function clearLanguage(e){
-      e.preventDefault();
-      localStorage.removeItem("lang");
-      // wracamy do DE i pokazujemy linki
-      applyLang("de");
+    function hideLang(){
       document.getElementById("lang-select").classList.add("hidden");
-      document.getElementById("links").classList.remove("hidden");
+      document.getElementById("linksView").classList.remove("hidden");
+      // gallery stays hidden unless opened
     }
 
     // ====== Theme ======
@@ -760,16 +773,6 @@
       catch(err){ window.open(url, "_blank"); }
     }
 
-    async function copyLink(e, url){
-      e.preventDefault();
-      try{
-        await navigator.clipboard.writeText(url);
-        toast("Skopiowane");
-      }catch(err){
-        window.prompt("Skopiuj link:", url);
-      }
-    }
-
     // ====== Modal ======
     function openModal(src){
       const modal = document.getElementById("modal");
@@ -783,56 +786,25 @@
       img.src = "";
       modal.classList.remove("open");
     }
-    window.addEventListener("keydown", (e) => {
-      if(e.key === "Escape") closeModal();
-    });
+    window.addEventListener("keydown", (e) => { if(e.key === "Escape") closeModal(); });
 
     // ====== Toast ======
     let toastTimer;
     function toast(msg){
-      clearTimeout(toastTimer);
-      let t = document.getElementById("toast");
-      if(!t){
-        t = document.createElement("div");
-        t.id = "toast";
-        t.style.position = "fixed";
-        t.style.left = "50%";
-        t.style.bottom = "22px";
-        t.style.transform = "translateX(-50%)";
-        t.style.padding = "10px 14px";
-        t.style.borderRadius = "999px";
-        t.style.border = "1px solid rgba(255,255,255,.14)";
-        t.style.background = "rgba(0,0,0,.55)";
-        t.style.color = "rgba(243,246,251,.92)";
-        t.style.fontSize = "12px";
-        t.style.backdropFilter = "blur(8px)";
-        t.style.webkitBackdropFilter = "blur(8px)";
-        t.style.boxShadow = "0 18px 50px rgba(0,0,0,.6)";
-        t.style.zIndex = "99999";
-        document.body.appendChild(t);
-      }
+      const t = document.getElementById("toast");
       t.textContent = msg;
       t.style.opacity = "1";
-      toastTimer = setTimeout(()=>{ t.style.opacity = "0"; }, 1100);
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=>{ t.style.opacity = "0"; }, 950);
     }
 
     // ====== INIT ======
-    // Theme: zapamiętany lub dark
     const savedTheme = localStorage.getItem("theme");
     setTheme(savedTheme || "dark");
 
-    // Język: ZAWSZE DE na pierwszym wejściu.
-    // Jeśli już wcześniej ktoś wybrał język, to dopiero wtedy używamy zapisanego.
-    // (Jeśli chcesz zawsze wymuszać DE i nigdy nie pamiętać, powiedz – zmienię.)
     const savedLang = localStorage.getItem("lang");
-    const langToUse = savedLang ? savedLang : "de";
-    applyLang(langToUse);
-
-    // Pokazujemy linki od razu, ale język chipem można zmienić
-    document.getElementById("lang-select").classList.add("hidden");
-    document.getElementById("links").classList.remove("hidden");
-
-    buildGallery();
+    applyLang(savedLang || "de");
+    hideLang(); // start on links, German default
   </script>
 </body>
 </html>
